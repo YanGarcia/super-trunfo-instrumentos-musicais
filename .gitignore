@@ -1,0 +1,18 @@
+# Compilação e binários de Java
+bin/
+*.class
+
+# Arquivos de IDEs (Eclipse, IntelliJ, VS Code)
+.project
+.classpath
+.settings/
+.idea/
+*.iml
+*.iws
+.vscode/
+out/
+
+# Logs e temporários
+*.log
+.DS_Store
+Thumbs.db
