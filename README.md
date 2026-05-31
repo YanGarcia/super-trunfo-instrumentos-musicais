@@ -39,22 +39,35 @@ super-trunfo/
 
 ### 1. Pré-requisitos
 - **JDK** instalado (versão 17 ou superior)
-- **MySQL Server** instalado e rodando
+- **MySQL rodando** (seja via XAMPP ou instalação standalone do MySQL Server)
 - **Driver JDBC** MySQL (`mysql-connector-j`) — já incluso na pasta `lib/`
 
 ### 2. Criar o banco de dados
-Abra o **PowerShell** e execute:
-```powershell
-& "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -p
-```
-Digite a senha do MySQL quando solicitado. Depois, dentro do MySQL:
-```sql
-SOURCE C:/caminho/do/projeto/super-trunfo/sql/script.sql;
-```
-Ou, de forma direta no PowerShell (substitua `SUASENHA` pela senha real):
-```powershell
-Get-Content "sql\script.sql" -Encoding UTF8 | & "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -pSUASENHA
-```
+
+Escolha **uma** das opções abaixo para criar o banco de dados e importar a tabela com as cartas:
+
+#### Opção A: Pela interface web do XAMPP (phpMyAdmin) - *Recomendado*
+1. Certifique-se de que os módulos **Apache** e **MySQL** estejam iniciados no XAMPP Control Panel.
+2. Abra o seu navegador e acesse: **http://localhost/phpmyadmin**
+3. No menu superior, clique na aba **Importar** (Import).
+4. Clique em **Escolher arquivo** e selecione o arquivo `sql/script.sql` localizado na pasta do projeto.
+5. Role a página até o final e clique no botão **Importar** (ou *Go*). O banco `super_trunfo` será criado e populado automaticamente!
+
+#### Opção B: Pelo terminal do XAMPP
+1. Abra o PowerShell ou prompt de comando e execute:
+   ```powershell
+   & "C:\xampp\mysql\bin\mysql.exe" -u root -e "source sql/script.sql"
+   ```
+
+#### Opção C: Pelo terminal do MySQL Server (Instalação standalone antiga)
+1. Abra o PowerShell e execute o comando de login (substitua `SUASENHA` pela senha real caso utilize):
+   ```powershell
+   & "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -p
+   ```
+2. Após fazer o login, execute o script:
+   ```sql
+   SOURCE C:/caminho/do/projeto/super-trunfo/sql/script.sql;
+   ```
 
 ### 3. Ajustar credenciais (se necessário)
 Abra o arquivo `src/br/com/trabalho/util/ConnectionFactory.java` e altere:
