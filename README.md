@@ -101,13 +101,26 @@ No PowerShell, navegue até a pasta do projeto e execute:
 
 ---
 
-## Como demonstrar o banco MySQL ao professor
+## Como visualizar e gerenciar o banco de dados MySQL
 
-### Opção A: Modo interativo (recomendado para apresentação)
+Você pode visualizar a tabela e validar a estrutura do banco de dados de três maneiras diferentes:
+
+### Opção A: Pela interface visual web (phpMyAdmin - XAMPP) - *Recomendado*
+1. Acesse o painel **[http://localhost/phpmyadmin](http://localhost/phpmyadmin)** no seu navegador.
+2. Na coluna à esquerda, clique na base de dados **`super_trunfo`** e selecione a tabela **`cartas`**.
+3. Na aba **Visualizar** (Browse), você verá a planilha interativa com as 11 cartas cadastradas.
+4. Na aba **Estrutura** (Structure), você verá todos os campos criados (nomes dos atributos, tipos numéricos e chaves).
+
+### Opção B: Pelo terminal interativo (Console MySQL)
+Abra o PowerShell ou Prompt de Comando e execute (ajuste para o caminho do seu MySQL, ex: XAMPP ou standalone):
 ```powershell
+# Exemplo usando XAMPP:
+& "C:\xampp\mysql\bin\mysql.exe" -u root
+
+# Exemplo usando MySQL Server avulso:
 & "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -p
 ```
-Após digitar a senha, execute dentro do MySQL:
+Após o login, execute os seguintes comandos SQL:
 ```sql
 -- Selecionar o banco
 USE super_trunfo;
@@ -115,7 +128,7 @@ USE super_trunfo;
 -- Ver todas as 11 cartas com seus atributos
 SELECT * FROM cartas;
 
--- Mostrar que são 11 cartas (número ímpar)
+-- Mostrar a quantidade total de cartas
 SELECT COUNT(*) AS total_cartas FROM cartas;
 
 -- Mostrar a estrutura da tabela
@@ -123,24 +136,25 @@ DESCRIBE cartas;
 ```
 Para sair, digite `exit`.
 
-### Opção B: Comandos diretos (mais rápido)
+### Opção C: Comandos rápidos diretos via terminal
+Execute no PowerShell para rodar consultas sem entrar no prompt interativo do banco (ajuste o caminho do executável conforme seu ambiente):
 ```powershell
 # Ver todas as cartas
-& "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -pSUASENHA -e "USE super_trunfo; SELECT * FROM cartas;"
+& "C:\xampp\mysql\bin\mysql.exe" -u root -e "USE super_trunfo; SELECT * FROM cartas;"
 
 # Contar as cartas
-& "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -pSUASENHA -e "USE super_trunfo; SELECT COUNT(*) AS total_cartas FROM cartas;"
+& "C:\xampp\mysql\bin\mysql.exe" -u root -e "USE super_trunfo; SELECT COUNT(*) AS total_cartas FROM cartas;"
 
 # Estrutura da tabela
-& "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -pSUASENHA -e "USE super_trunfo; DESCRIBE cartas;"
+& "C:\xampp\mysql\bin\mysql.exe" -u root -e "USE super_trunfo; DESCRIBE cartas;"
 ```
 
-### O que cada comando demonstra ao professor
-| Comando | O que prova |
-|---------|-------------|
-| `SELECT * FROM cartas` | As cartas são armazenadas no MySQL (não estão fixas no código) |
-| `SELECT COUNT(*)` | São exatamente 11 cartas (número ímpar, como exigido) |
-| `DESCRIBE cartas` | A tabela possui os 5 atributos numéricos + nome + código |
+### O que cada validação demonstra no projeto
+| Comando / Ação | O que é validado |
+|---|---|
+| `SELECT * FROM cartas` | As cartas estão de fato salvas e persistidas no banco MySQL (não fixas no código Java). |
+| `SELECT COUNT(*)` | Existem exatamente 11 cartas no banco (atendendo ao requisito de número ímpar). |
+| `DESCRIBE cartas` | A tabela possui a estrutura MVC correta com os 5 atributos numéricos comparáveis + nome e código. |
 
 ---
 
