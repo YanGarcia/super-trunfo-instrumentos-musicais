@@ -15,7 +15,7 @@ public class ConnectionFactory {
     // ============================================================
     private static final String URL = "jdbc:mysql://localhost:3306/super_trunfo?useSSL=false&serverTimezone=America/Sao_Paulo&useUnicode=true&characterEncoding=UTF-8";
     private static final String USUARIO = "root";
-    private static final String SENHA = "admin";
+    private static final String SENHA = "";
 
     /**
      * Retorna uma conexão ativa com o banco super_trunfo.
