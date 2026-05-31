@@ -60,7 +60,7 @@ Get-Content "sql\script.sql" -Encoding UTF8 | & "C:\Program Files\MySQL\MySQL Se
 Abra o arquivo `src/br/com/trabalho/util/ConnectionFactory.java` e altere:
 ```java
 private static final String USUARIO = "root";
-private static final String SENHA = "admin";  // ← coloque a sua senha aqui
+private static final String SENHA = "";  // ← coloque a sua senha do MySQL aqui (o padrão do XAMPP é vazio "")
 ```
 
 ### 4. Compilar o projeto
