@@ -103,7 +103,7 @@ No PowerShell, navegue até a pasta do projeto e execute:
 
 ## Como visualizar e gerenciar o banco de dados MySQL
 
-Você pode visualizar a tabela e validar a estrutura do banco de dados de três maneiras diferentes:
+Você pode visualizar a tabela e validar a estrutura do banco de dados de duas maneiras simples:
 
 ### Opção A: Pela interface visual web (phpMyAdmin - XAMPP) - *Recomendado*
 1. Acesse o painel **[http://localhost/phpmyadmin](http://localhost/phpmyadmin)** no seu navegador.
@@ -111,43 +111,32 @@ Você pode visualizar a tabela e validar a estrutura do banco de dados de três 
 3. Na aba **Visualizar** (Browse), você verá a planilha interativa com as 11 cartas cadastradas.
 4. Na aba **Estrutura** (Structure), você verá todos os campos criados (nomes dos atributos, tipos numéricos e chaves).
 
-### Opção B: Pelo terminal interativo (Console MySQL)
-Abra o PowerShell ou Prompt de Comando e execute (ajuste para o caminho do seu MySQL, ex: XAMPP ou standalone):
-```powershell
-# Exemplo usando XAMPP:
-& "C:\xampp\mysql\bin\mysql.exe" -u root
+### Opção B: Por comando rápido direto no terminal
+Você pode rodar comandos de consulta de forma direta, sem precisar fazer login ou entrar no terminal interativo do banco. Basta abrir o terminal e rodar o comando correspondente ao seu ambiente:
 
-# Exemplo usando MySQL Server avulso:
-& "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -p
-```
-Após o login, execute os seguintes comandos SQL:
-```sql
--- Selecionar o banco
-USE super_trunfo;
+#### 1. Ver todas as cartas
+* **Se estiver usando o Shell do XAMPP (Forma mais rápida):**
+  ```cmd
+  mysql -u root -e "USE super_trunfo; SELECT * FROM cartas;"
+  ```
+* **Se estiver no PowerShell padrão (usando XAMPP):**
+  ```powershell
+  & "C:\xampp\mysql\bin\mysql.exe" -u root -e "USE super_trunfo; SELECT * FROM cartas;"
+  ```
+* **Se estiver no PowerShell padrão (usando MySQL Server avulso):**
+  ```powershell
+  & "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -p -e "USE super_trunfo; SELECT * FROM cartas;"
+  ```
 
--- Ver todas as 11 cartas com seus atributos
-SELECT * FROM cartas;
-
--- Mostrar a quantidade total de cartas
-SELECT COUNT(*) AS total_cartas FROM cartas;
-
--- Mostrar a estrutura da tabela
-DESCRIBE cartas;
-```
-Para sair, digite `exit`.
-
-### Opção C: Comandos rápidos diretos via terminal
-Execute no PowerShell para rodar consultas sem entrar no prompt interativo do banco (ajuste o caminho do executável conforme seu ambiente):
-```powershell
-# Ver todas as cartas
-& "C:\xampp\mysql\bin\mysql.exe" -u root -e "USE super_trunfo; SELECT * FROM cartas;"
-
-# Contar as cartas
-& "C:\xampp\mysql\bin\mysql.exe" -u root -e "USE super_trunfo; SELECT COUNT(*) AS total_cartas FROM cartas;"
-
-# Estrutura da tabela
-& "C:\xampp\mysql\bin\mysql.exe" -u root -e "USE super_trunfo; DESCRIBE cartas;"
-```
+#### 2. Verificar a estrutura da tabela
+* **Se estiver usando o Shell do XAMPP:**
+  ```cmd
+  mysql -u root -e "USE super_trunfo; DESCRIBE cartas;"
+  ```
+* **Se estiver no PowerShell padrão (usando XAMPP):**
+  ```powershell
+  & "C:\xampp\mysql\bin\mysql.exe" -u root -e "USE super_trunfo; DESCRIBE cartas;"
+  ```
 
 ### O que cada validação demonstra no projeto
 | Comando / Ação | O que é validado |
