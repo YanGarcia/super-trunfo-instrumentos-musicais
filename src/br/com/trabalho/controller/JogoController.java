@@ -47,16 +47,22 @@ public class JogoController {
         List<Carta> todasCartas = cartaDAO.listarTodas();
         Collections.shuffle(todasCartas);
 
-        // Distribui: 5 para jogador, 5 para máquina, 1 sobra
-        int metade = todasCartas.size() / 2;
-        for (int i = 0; i < metade; i++) {
+        // Distribui um número ímpar de cartas para cada jogador, descartando o restante.
+        int cartasPorJogador = todasCartas.size() / 2;
+        if (cartasPorJogador % 2 == 0) {
+            cartasPorJogador--;
+        }
+        if (cartasPorJogador < 1) {
+            cartasPorJogador = 1;
+        }
+        for (int i = 0; i < cartasPorJogador; i++) {
             jogador.adicionarCarta(todasCartas.get(i));
         }
-        for (int i = metade; i < metade * 2; i++) {
+        for (int i = cartasPorJogador; i < cartasPorJogador * 2; i++) {
             maquina.adicionarCarta(todasCartas.get(i));
         }
 
-        totalRodadas = metade; // 5 rodadas
+        totalRodadas = cartasPorJogador; // rodadas ímpares
     }
 
     /**

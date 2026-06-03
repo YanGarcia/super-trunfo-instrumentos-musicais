@@ -333,6 +333,14 @@ public class TelaJogo extends JFrame {
                 for (var al : b.getActionListeners()) b.removeActionListener(al);
                 final Carta fc = c; final JButton fb = b;
                 b.addActionListener(e -> selecionar(fc, fb));
+            } else {
+                b.setIcon(null);
+                b.setText("");
+                b.setToolTipText(null);
+                b.putClientProperty("carta", null);
+                b.setEnabled(false);
+                b.setBackground(DISABLED);
+                b.setBorder(BorderFactory.createLineBorder(DISABLED, 1));
             }
         }
         List<Carta> cm = controller.getMaquina().getCartas();
@@ -340,6 +348,9 @@ public class TelaJogo extends JFrame {
             JButton b = botoesMaquina.get(i);
             if (i < cm.size()) {
                 b.setText(extrairNumero(cm.get(i).getCodigo()));
+                b.setEnabled(false); b.setBackground(DISABLED);
+            } else {
+                b.setText("");
                 b.setEnabled(false); b.setBackground(DISABLED);
             }
         }
