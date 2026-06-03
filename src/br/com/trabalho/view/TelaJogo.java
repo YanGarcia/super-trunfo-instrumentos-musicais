@@ -144,7 +144,7 @@ public class TelaJogo extends JFrame {
         p.add(lbl); p.add(Box.createVerticalStrut(4));
         JPanel row = new JPanel(new FlowLayout(FlowLayout.CENTER, 3, 0));
         row.setOpaque(false);
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             JButton b = new JButton();
             b.setPreferredSize(new Dimension(52, 52));
             b.setFont(F_SMALL); b.setFocusPainted(false);
@@ -400,9 +400,14 @@ public class TelaJogo extends JFrame {
         lblGeralVoce.setText(String.valueOf(controller.getJogador().getPontosGeral()));
         lblGeralMaq.setText(String.valueOf(controller.getMaquina().getPontosGeral()));
 
-        for (JButton b : botoesJogador)
-            if (b.getToolTipText() != null && b.getToolTipText().equals(cartaSelecionada.getNome()))
-                { b.setEnabled(false); b.setBackground(DISABLED); b.setBorder(BorderFactory.createLineBorder(DISABLED, 1)); }
+        for (JButton b : botoesJogador) {
+            Object prop = b.getClientProperty("carta");
+            if (prop instanceof Carta && ((Carta) prop).getId() == cartaSelecionada.getId()) {
+                b.setEnabled(false);
+                b.setBackground(DISABLED);
+                b.setBorder(BorderFactory.createLineBorder(DISABLED, 1));
+            }
+        }
         for (JButton b : botoesMaquina)
             if (b.getText().equals(extrairNumero(cm.getCodigo())))
                 b.setBackground(new Color(80, 50, 50));
