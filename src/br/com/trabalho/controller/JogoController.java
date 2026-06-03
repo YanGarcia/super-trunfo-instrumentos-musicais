@@ -4,6 +4,7 @@ import br.com.trabalho.dao.CartaDAO;
 import br.com.trabalho.model.Carta;
 import br.com.trabalho.model.Jogador;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class JogoController {
 
     /**
      * Inicia o jogo: carrega cartas do banco, embaralha e distribui.
-     * 11 cartas → 5 para jogador, 5 para máquina, 1 descartada.
+     * 13 cartas → 6 para jogador, 6 para máquina, 1 descartada.
      */
     public void iniciarJogo() {
         jogador.resetar();
@@ -77,19 +78,31 @@ public class JogoController {
         pontosRodadaJogador = 0;
         pontosRodadaMaquina = 0;
 
-        for (int i = 0; i < TOTAL_ATRIBUTOS; i++) {
-            double valorJogador = cartaJogador.getValorAtributo(i);
-            double valorMaquina = cartaAtualMaquina.getValorAtributo(i);
+        if (cartaJogador.isSuperTrunfo() && !cartaAtualMaquina.isSuperTrunfo()) {
+            jogadorVenceuAtributo = new boolean[TOTAL_ATRIBUTOS];
+            Arrays.fill(jogadorVenceuAtributo, true);
+            pontosRodadaJogador = TOTAL_ATRIBUTOS;
+            pontosRodadaMaquina = 0;
+        } else if (!cartaJogador.isSuperTrunfo() && cartaAtualMaquina.isSuperTrunfo()) {
+            jogadorVenceuAtributo = new boolean[TOTAL_ATRIBUTOS];
+            Arrays.fill(jogadorVenceuAtributo, false);
+            pontosRodadaJogador = 0;
+            pontosRodadaMaquina = TOTAL_ATRIBUTOS;
+        } else {
+            for (int i = 0; i < TOTAL_ATRIBUTOS; i++) {
+                double valorJogador = cartaJogador.getValorAtributo(i);
+                double valorMaquina = cartaAtualMaquina.getValorAtributo(i);
 
-            if (valorJogador > valorMaquina) {
-                jogadorVenceuAtributo[i] = true;
-                pontosRodadaJogador++;
-            } else if (valorMaquina > valorJogador) {
-                jogadorVenceuAtributo[i] = false;
-                pontosRodadaMaquina++;
-            } else {
-                // Empate no atributo: ninguém pontua
-                jogadorVenceuAtributo[i] = false;
+                if (valorJogador > valorMaquina) {
+                    jogadorVenceuAtributo[i] = true;
+                    pontosRodadaJogador++;
+                } else if (valorMaquina > valorJogador) {
+                    jogadorVenceuAtributo[i] = false;
+                    pontosRodadaMaquina++;
+                } else {
+                    // Empate no atributo: ninguém pontua
+                    jogadorVenceuAtributo[i] = false;
+                }
             }
         }
 

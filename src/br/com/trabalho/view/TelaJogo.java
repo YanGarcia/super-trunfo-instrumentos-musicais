@@ -75,7 +75,7 @@ public class TelaJogo extends JFrame {
     }
 
     private void carregarImagens() {
-        String[] codigos = {"I1","I2","I3","I4","I5","I6","I7","I8","I9","I10","I11"};
+        String[] codigos = {"I1","I2","I3","I4","I5","I6","I7","I8","I9","I10","I11","I12","I13"};
         for (String cod : codigos) {
             try {
                 File arq = new File(basePath + cod + ".png");
@@ -322,9 +322,14 @@ public class TelaJogo extends JFrame {
                 ImageIcon mini = miniaturas.get(c.getCodigo());
                 if (mini != null) { b.setIcon(mini); b.setText(""); }
                 else b.setText(extrairNumero(c.getCodigo()));
-                b.setToolTipText(c.getNome());
+                b.setToolTipText(c.getNome() + (c.isSuperTrunfo() ? " (Super Trunfo)" : ""));
+                b.putClientProperty("carta", c);
                 b.setEnabled(true); b.setBackground(BG_CARD);
-                b.setBorder(BorderFactory.createLineBorder(new Color(70, 75, 90), 1));
+                if (c.isSuperTrunfo()) {
+                    b.setBorder(BorderFactory.createLineBorder(ACCENT, 2));
+                } else {
+                    b.setBorder(BorderFactory.createLineBorder(new Color(70, 75, 90), 1));
+                }
                 for (var al : b.getActionListeners()) b.removeActionListener(al);
                 final Carta fc = c; final JButton fb = b;
                 b.addActionListener(e -> selecionar(fc, fb));
@@ -350,7 +355,12 @@ public class TelaJogo extends JFrame {
         for (JButton b : botoesJogador) {
             if (b.isEnabled()) {
                 b.setBackground(BG_CARD);
-                b.setBorder(BorderFactory.createLineBorder(new Color(70, 75, 90), 1));
+                Object prop = b.getClientProperty("carta");
+                if (prop instanceof Carta && ((Carta) prop).isSuperTrunfo()) {
+                    b.setBorder(BorderFactory.createLineBorder(ACCENT, 2));
+                } else {
+                    b.setBorder(BorderFactory.createLineBorder(new Color(70, 75, 90), 1));
+                }
             }
         }
         btn.setBackground(new Color(50, 70, 100));
@@ -436,7 +446,17 @@ public class TelaJogo extends JFrame {
         JLabel nome = new JLabel(c.getNome(), SwingConstants.CENTER);
         nome.setFont(F_CARD_NAME); nome.setForeground(TXT);
         nome.setAlignmentX(Component.CENTER_ALIGNMENT);
-        info.add(nome); info.add(Box.createVerticalStrut(8));
+        info.add(nome);
+
+        if (c.isSuperTrunfo()) {
+            JLabel badge = new JLabel("SUPER TRUNFO", SwingConstants.CENTER);
+            badge.setFont(new Font("SansSerif", Font.BOLD, 12));
+            badge.setForeground(ACCENT);
+            badge.setAlignmentX(Component.CENTER_ALIGNMENT);
+            info.add(badge);
+        }
+
+        info.add(Box.createVerticalStrut(8));
 
         for (int i = 0; i < 5; i++) {
             JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT, 4, 1));

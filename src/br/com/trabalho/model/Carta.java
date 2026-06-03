@@ -19,11 +19,13 @@ public class Carta {
     private double preco;
     private int popularidade;
     private int volumeDb;
+    private boolean superTrunfo;
 
     public Carta() {}
 
     public Carta(int id, String nome, String codigo, int anoCriacao,
-                 double pesoKg, double preco, int popularidade, int volumeDb) {
+                 double pesoKg, double preco, int popularidade, int volumeDb,
+                 boolean superTrunfo) {
         this.id = id;
         this.nome = nome;
         this.codigo = codigo;
@@ -32,6 +34,7 @@ public class Carta {
         this.preco = preco;
         this.popularidade = popularidade;
         this.volumeDb = volumeDb;
+        this.superTrunfo = superTrunfo;
     }
 
     /**
@@ -90,6 +93,14 @@ public class Carta {
     public void setVolumeDb(int volumeDb) { this.volumeDb = volumeDb; }
 
     /** Retorna o nome do arquivo de imagem (ex: "I1.png") */
+    public boolean isSuperTrunfo() {
+        return superTrunfo;
+    }
+
+    public void setSuperTrunfo(boolean superTrunfo) {
+        this.superTrunfo = superTrunfo;
+    }
+
     public String getNomeImagem() {
         return codigo + ".png";
     }

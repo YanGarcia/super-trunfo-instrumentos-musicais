@@ -21,7 +21,7 @@ public class CartaDAO {
      */
     public List<Carta> listarTodas() {
         List<Carta> cartas = new ArrayList<>();
-        String sql = "SELECT id, nome, codigo, ano_criacao, peso_kg, preco, popularidade, volume_db FROM cartas";
+        String sql = "SELECT id, nome, codigo, ano_criacao, peso_kg, preco, popularidade, volume_db, super_trunfo FROM cartas";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -36,7 +36,8 @@ public class CartaDAO {
                     rs.getDouble("peso_kg"),
                     rs.getDouble("preco"),
                     rs.getInt("popularidade"),
-                    rs.getInt("volume_db")
+                    rs.getInt("volume_db"),
+                    rs.getBoolean("super_trunfo")
                 );
                 cartas.add(carta);
             }
