@@ -144,7 +144,7 @@ public class TelaJogo extends JFrame {
         p.add(lbl); p.add(Box.createVerticalStrut(4));
         JPanel row = new JPanel(new FlowLayout(FlowLayout.CENTER, 3, 0));
         row.setOpaque(false);
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 5; i++) {
             JButton b = new JButton();
             b.setPreferredSize(new Dimension(52, 52));
             b.setFont(F_SMALL); b.setFocusPainted(false);
@@ -324,7 +324,7 @@ public class TelaJogo extends JFrame {
                 else b.setText(extrairNumero(c.getCodigo()));
                 b.setToolTipText(c.getNome() + (c.isSuperTrunfo() ? " (Super Trunfo)" : ""));
                 b.putClientProperty("carta", c);
-                b.setEnabled(true); b.setBackground(BG_CARD);
+                b.setEnabled(true); b.setVisible(true); b.setBackground(BG_CARD);
                 if (c.isSuperTrunfo()) {
                     b.setBorder(BorderFactory.createLineBorder(ACCENT, 2));
                 } else {
@@ -339,6 +339,7 @@ public class TelaJogo extends JFrame {
                 b.setToolTipText(null);
                 b.putClientProperty("carta", null);
                 b.setEnabled(false);
+                b.setVisible(false);
                 b.setBackground(DISABLED);
                 b.setBorder(BorderFactory.createLineBorder(DISABLED, 1));
             }
@@ -348,9 +349,11 @@ public class TelaJogo extends JFrame {
             JButton b = botoesMaquina.get(i);
             if (i < cm.size()) {
                 b.setText(extrairNumero(cm.get(i).getCodigo()));
+                b.setVisible(true);
                 b.setEnabled(false); b.setBackground(DISABLED);
             } else {
                 b.setText("");
+                b.setVisible(false);
                 b.setEnabled(false); b.setBackground(DISABLED);
             }
         }
